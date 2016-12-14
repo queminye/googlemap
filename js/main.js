@@ -6,16 +6,16 @@ function initMap() {
 		center: {lat: -34.397, lng: 150.644},
 		zoom: 8
 	});
+
+	map.addListener('click', function(e) {
+		placeMarkerAndPanTo(e.latLng, map);
+	});
 }
 
 function moveTo(latitude,longitude) {
 	var myLatlng = {lat: latitude, lng: longitude};
 	map.panTo(myLatlng);
 } 
-
-map.addListener('click', function(e) {
-	placeMarkerAndPanTo(e.latLng, map);
-});
 
 function placeMarkerAndPanTo(latLng, map) {
 	var marker = new google.maps.Marker({
