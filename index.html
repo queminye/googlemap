@@ -35,14 +35,18 @@
         function placeMarkerAndPanTo(latLng, map) {
           var marker = new google.maps.Marker({
             position: latLng,
-            map: map
+            map: map,
+            icon: "image/ic_finger_marker.png"
           });
           map.panTo(latLng);
         }
       }
     </script>
 
+
     <script src="https://maps.google.cn/maps/api/js?key=AIzaSyD8ySZo45hAL7ZWNn5re_-5WXf7IRq5FwE&callback=initMap"
     async defer></script>
+
+
   </body>
   </html>
