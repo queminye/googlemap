@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
       /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      * element that contains the map. */
       #map {
         height: 100%;
       }
@@ -27,9 +27,22 @@
           center: {lat: -34.397, lng: 150.644},
           zoom: 8
         });
+
+        map.addListener('click', function(e) {
+          placeMarkerAndPanTo(e.latLng, map);
+        });
+
+        function placeMarkerAndPanTo(latLng, map) {
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+          map.panTo(latLng);
+        }
       }
     </script>
+
     <script src="https://maps.google.cn/maps/api/js?key=AIzaSyD8ySZo45hAL7ZWNn5re_-5WXf7IRq5FwE&callback=initMap"
     async defer></script>
   </body>
-</html>
+  </html>
