@@ -17,11 +17,29 @@ function moveTo(latitude,longitude) {
 	map.panTo(myLatlng);
 } 
 
+var marker;
+
 function placeMarkerAndPanTo(latLng, map) {
-	var marker = new google.maps.Marker({
+	if(marker!=null)
+		marker.setMap(null);
+	marker = new google.maps.Marker({
 		position: latLng,
 		map: map,
 		icon: "image/ic_finger_marker.png"
 	});
-	map.panTo(latLng);
+
+	console.dir(latLng);
+
+	window.setTimeout(function() {
+		map.panTo(latLng);
+	}, 500);
+
+	onPositionChoosed(latLng.lat(), latLng.lng(), "test");
+}
+
+
+//-------------------------to java-------------------
+function onPositionChoosed(latitude, longitude, address) {
+	// console.log(latitude+""+longitude);
+	window.control.onPositionChoosed(latitude, longitude, address);
 }
