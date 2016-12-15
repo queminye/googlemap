@@ -1,6 +1,6 @@
-
-
 var map;
+var marker;
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: -34.397, lng: 150.644},
@@ -11,13 +11,6 @@ function initMap() {
 		placeMarkerAndPanTo(e.latLng, map);
 	});
 }
-
-function moveTo(latitude,longitude) {
-	var myLatlng = {lat: latitude, lng: longitude};
-	map.panTo(myLatlng);
-} 
-
-var marker;
 
 function placeMarkerAndPanTo(latLng, map) {
 	if(marker!=null)
@@ -37,6 +30,11 @@ function placeMarkerAndPanTo(latLng, map) {
 	onPositionChoosed(latLng.lat(), latLng.lng(), "test");
 }
 
+//--------------------------from java-------------------------
+function moveTo(latitude,longitude) {
+	var myLatlng = {lat: latitude, lng: longitude};
+	map.panTo(myLatlng);
+} 
 
 //-------------------------to java-------------------
 function onPositionChoosed(latitude, longitude, address) {
