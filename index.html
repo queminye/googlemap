@@ -9,12 +9,16 @@
 
 <body>
 
-	<button onclick="getLocation()">test</button>
+	<!-- <button onclick="doLocation()"> test</button> -->
 	<div id="map"></div>
-
 	<script src="js/main.js"></script>
- <!--  <script src="https://maps.google.cn/maps/api/js?key=AIzaSyD8ySZo45hAL7ZWNn5re_-5WXf7IRq5FwE&callback=initMap"
- async defer></script> -->
- <script  src="js/google_map_api.js"></script>
+
+	<!-- 由于google.com 的api有墙的概率 -->
+	<!-- <script  src="js/google_map_api.js"></script>  -->
+
+	<!-- 正确的谷歌api 使用 -->
+	<script src="https://maps.google.cn/maps/api/js?key=AIzaSyD8ySZo45hAL7ZWNn5re_-5WXf7IRq5FwE&callback=initMap&region=CN&language=zh"
+	async defer></script> 
+
 </body>
 </html>

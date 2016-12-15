@@ -3,19 +3,25 @@ var marker;
 var xiAnLatlng = {lat:34.31621838080741, lng:108.951416015625};
 
 function initMap() {
+	var geocoder = new google.maps.Geocoder;
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		center:xiAnLatlng,
-		zoom: 4
+		zoom: 4,
+		mapTypeControl:false,
+		panControl:false,
+		streetViewControl:false,
+		zoomControl:false
 	});
 
 	map.addListener('click', function(e) {
 		placeMarkerTo(e.latLng, map, "image/ic_finger_marker.png");
-		onPositionChoosed(latLng.lat(), latLng.lng(), "test");
+		geocodeLatLng(geocoder,e.latLng)
 		delayPanTo(e.latLng, map, 500);
 	});
 }
 
-function delayPanTo(latLng, map, dayduring){
+function delayPanTo(latLng, map, during){
 	window.setTimeout(function() {
 		map.panTo(latLng);
 	}, during);
@@ -33,6 +39,22 @@ function placeMarkerTo(latLng, map, iconPath){
 	});
 }
 
+function geocodeLatLng(geocoder, latLng) {
+	geocoder.geocode({'location': latLng}, function(results, status) {
+		if (status === 'OK') {
+			if (results[1]) {
+				onPositionChoosed(latLng, results[1].formatted_address);
+				console.dir(results[1].formatted_address);
+			} else {
+				onPositionChoosed(latLng, "");
+				window.alert('No results found');
+			}
+		} else {
+			window.alert('Geocoder failed due to: ' + status);
+			onPositionChoosed(latLng, "");
+		}
+	});
+}
 //--------------------------from java-------------------------
 function moveTo(latitude,longitude) {
 	console.log(latitude+"   "+longitude);
@@ -43,7 +65,7 @@ function moveTo(latitude,longitude) {
 } 
 
 //-------------------------to java-------------------
-function onPositionChoosed(latitude, longitude, address) {
-	console.log(latitude+"   "+longitude);
+function onPositionChoosed(latLng, address) {
+	console.log(latLng.lat()+"   "+latLng.lng() +"    "+address);
 	// window.control.onPositionChoosed(latitude, longitude, address);
 }
