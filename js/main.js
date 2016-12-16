@@ -82,10 +82,10 @@ function geocodeLatLng(geocoder, latLng) {
 				// console.dir(results[1]);
 			} else {
 				onPositionChoosed(latLng, "");
-				window.alert('No results found');
+				//window.alert('No results found');
 			}
 		} else {
-			window.alert('Geocoder failed due to: ' + status);
+			//window.alert('Geocoder failed due to: ' + status);
 			onPositionChoosed(latLng, "");
 		}
 	});
