@@ -82,20 +82,42 @@ function placeMarkerTo(latLng, map, iconPath){
 function geocodeLatLng(geocoder, latLng) {
 	geocoder.geocode({'location': latLng}, function(results, status) {
 		if (status === 'OK') {
-			if (results[1]) {
-				onPositionChoosed(latLng, results[0].formatted_address);
-				// console.dir(results[1]);
-			} else {
-				onPositionChoosed(latLng, "");
+			if (results[0]) {
+				var addressComponent = results[0];
+				console.dir(addressComponent);
+				var address_components = addressComponent.address_components;
+
+				var country, state, city;
+
+				for(var i = 0, length1 = address_components.length; i < length1; i++){
+					var types =address_components[i].types;
+					for(var j = 0, length2 = types.length; j < length2; j++){
+						if(types[j]=="country")
+							country = address_components[i].long_name;
+						else if(types[j]=="administrative_area_level_1")
+							state = address_components[i].long_name;
+						else if(types[j]=="locality")
+							city = address_components[i].long_name;
+					}
+				}
+				console.log(city+"_"+state+"_"+country);
+				if(country=="China" || country=="中国" || html_language=="zh"){
+					onPositionChoosed(latLng, results[0].formatted_address, "");
+				}else {
+					onPositionChoosed(latLng, addressComponent.formatted_address, city+"_"+state+"_"+country);
+				}
+				
+			}else {
+				onPositionChoosed(latLng, "","");
 				//window.alert('No results found');
 			}
 		} else {
 			//window.alert('Geocoder failed due to: ' + status);
-			onPositionChoosed(latLng, "");
+			onPositionChoosed(latLng, "","");
 		}
 	});
 }
-//--------------------------from java-------------------------
+//--------------------------invocate  from java-------------------------
 function moveLocationTo(latitude,longitude) {
 	var latlng = {lat: latitude, lng: longitude};
 	map.panTo(latlng);
@@ -119,11 +141,11 @@ function zoom(delt) {
 	map.setZoom(zoom+delt);
 } 
 
-//-------------------------to java-------------------
-function onPositionChoosed(latLng, address) {
+//-------------------------js to java-------------------
+function onPositionChoosed(latLng, address, cityCode) {
 	try {
 		// statements
-		window.control.onPositionChoosed(latLng.lat, latLng.lng, address);
+		window.control.onPositionChoosed(latLng.lat, latLng.lng, address, cityCode);
 	} catch(e) {
 		// statements
 		console.log(e);
