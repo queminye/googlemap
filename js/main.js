@@ -31,6 +31,7 @@ function initMap() {
           // If the place has a geometry, then present it on a map.
           if (place.geometry.viewport) {
           	map.fitBounds(place.geometry.viewport);
+          	map.setZoom(17);
           } else {
           	map.setCenter(place.geometry.location);
             map.setZoom(17);  // Why 17? Because it looks good.
@@ -52,7 +53,7 @@ function initMap() {
 	map.addListener('click', function(e) {
 		placeMarkerTo(e.latLng, map, "image/ic_finger_marker.png");
 		geocodeLatLng(geocoder,{lat: e.latLng.lat(), lng : e.latLng.lng()})
-		delayPanTo(e.latLng, map, 500);
+		delayPanTo(e.latLng, map, 500); 
 	});
 }
 
