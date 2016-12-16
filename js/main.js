@@ -56,6 +56,8 @@ function initMap() {
 		geocodeLatLng(geocoder,{lat: e.latLng.lat(), lng : e.latLng.lng()})
 		delayPanTo(e.latLng, map, 500); 
 	});
+
+	onMapLoaded();
 }
 
 function delayPanTo(latLng, map, during){
@@ -93,10 +95,18 @@ function geocodeLatLng(geocoder, latLng) {
 	});
 }
 //--------------------------from java-------------------------
-function moveTo(latitude,longitude) {
+function moveLocationTo(latitude,longitude) {
 	var latlng = {lat: latitude, lng: longitude};
 	map.panTo(latlng);
 	placeMarkerTo(latlng, map, "image/ic_map_mark.png");
+	map.setZoom(19);
+	geocodeLatLng(geocoder,latlng)
+} 
+
+function moveChoosedPositionTo(latitude,longitude) {
+	var latlng = {lat: latitude, lng: longitude};
+	map.panTo(latlng);
+	placeMarkerTo(latlng, map, "image/ic_finger_marker.png");
 	map.setZoom(19);
 	geocodeLatLng(geocoder,latlng)
 } 
@@ -111,6 +121,17 @@ function onPositionChoosed(latLng, address) {
 	try {
 		// statements
 		window.control.onPositionChoosed(latLng.lat, latLng.lng, address);
+	} catch(e) {
+		// statements
+		console.log(e);
+	} finally {
+		// statements
+	}
+}
+
+function onMapLoaded () {
+	try {
+		window.control.onMapLoaded();
 	} catch(e) {
 		// statements
 		console.log(e);
