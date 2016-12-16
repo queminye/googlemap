@@ -104,11 +104,13 @@ function moveLocationTo(latitude,longitude) {
 } 
 
 function moveChoosedPositionTo(latitude,longitude) {
-	var latlng = {lat: latitude, lng: longitude};
-	map.panTo(latlng);
-	placeMarkerTo(latlng, map, "image/ic_finger_marker.png");
-	map.setZoom(19);
-	geocodeLatLng(geocoder,latlng)
+	window.setTimeout(function() {
+		var latlng = {lat: latitude, lng: longitude};
+		map.panTo(latlng);
+		placeMarkerTo(latlng, map, "image/ic_finger_marker.png");
+		map.setZoom(19);
+		geocodeLatLng(geocoder,latlng)
+	}, 2000);
 } 
 
 function zoom(delt) {
