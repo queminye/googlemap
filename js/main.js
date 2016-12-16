@@ -31,22 +31,23 @@ function initMap() {
           // If the place has a geometry, then present it on a map.
           if (place.geometry.viewport) {
           	map.fitBounds(place.geometry.viewport);
-          	map.setZoom(17);
           } else {
           	map.setCenter(place.geometry.location);
-            map.setZoom(17);  // Why 17? Because it looks good.
-        }
+          	map.setZoom(17);// Why 17? Because it looks good.
+          	placeMarkerTo(place.geometry.location,map, "image/ic_finger_marker.png");
+          }
 
-        var address = '';
-        if (place.address_components) {
-        	address = [
-        	(place.address_components[0] && place.address_components[0].short_name || ''),
-        	(place.address_components[1] && place.address_components[1].short_name || ''),
-        	(place.address_components[2] && place.address_components[2].short_name || '')
-        	].join(' ');
-        }
-        console.dir(place);
-    });
+
+          var address = '';
+          if (place.address_components) {
+          	address = [
+          	(place.address_components[0] && place.address_components[0].short_name || ''),
+          	(place.address_components[1] && place.address_components[1].short_name || ''),
+          	(place.address_components[2] && place.address_components[2].short_name || '')
+          	].join(' ');
+          }
+          console.dir(place);
+      });
 
 	
 
