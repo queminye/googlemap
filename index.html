@@ -38,8 +38,11 @@
 
 
 		var url 
-		if(html_language==="zh"){
-			url = "<script src= 'js/google_map_api_zh.js' async defer><\/script>";
+		if(html_country==="CN"){
+			if(html_language==="zh")
+				url = "<script src= 'js/google_map_api_zh.js' async defer><\/script>";
+			else
+				url = "<script src= 'js/google_map_api_en.js' async defer><\/script>";
 		}else{
 			url = "<script src= 'https://maps.google.com/maps/api/js?key=AIzaSyD8ySZo45hAL7ZWNn5re_-5WXf7IRq5FwE&callback=initMap&country="+html_country+"&language="+html_language+"&libraries=places' async defer><\/script>";
 		}
