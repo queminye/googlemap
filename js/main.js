@@ -15,6 +15,7 @@ function initMap() {
 		clickableIcons: false
 	});
 
+	var input = document.getElementById('pac-input');
 	if (html_country === "CN") {
 		var auto = new AMap.Autocomplete({
 			input: "pac-input"
@@ -29,7 +30,6 @@ function initMap() {
         });
 
 	} else {
-		var input = document.getElementById('pac-input');
 		var autocomplete = new google.maps.places.Autocomplete(input);
 		autocomplete.bindTo('bounds', map);
 		autocomplete.addListener('place_changed', function() {
