@@ -26,6 +26,9 @@ function initMap() {
 				map.setCenter(data.poi.location);
                 map.setZoom(17); // Why 17? Because it looks good.
                 placeMarkerTo(data.poi.location, map, "image/ic_finger_marker.png");
+
+                var latlng = { lat: data.poi.location.getLat(), lng: data.poi.location.getLng()};
+                onPositionChoosed(latlng, data.poi.address, "");
             } 
         });
 
@@ -48,18 +51,26 @@ function initMap() {
             	map.setCenter(place.geometry.location);
                 map.setZoom(17); // Why 17? Because it looks good.
                 placeMarkerTo(place.geometry.location, map, "image/ic_finger_marker.png");
-            }
 
+                var latlng = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
 
-            var address = '';
-            if (place.address_components) {
-            	address = [
-            	(place.address_components[0] && place.address_components[0].short_name || ''),
-            	(place.address_components[1] && place.address_components[1].short_name || ''),
-            	(place.address_components[2] && place.address_components[2].short_name || '')
-            	].join(' ');
+                var country, state, city;
+                if(place.address_components)
+                {
+                	for (var i = 0, length1 = place.address_components.length; i < length1; i++) {
+                		var types = place.address_components[i].types;
+                		for (var j = 0, length2 = types.length; j < length2; j++) {
+                			if (types[j] == "country")
+                				country = place.address_components[i].long_name;
+                			else if (types[j] == "administrative_area_level_1")
+                				state = place.address_components[i].long_name;
+                			else if (types[j] == "locality")
+                				city = place.address_components[i].long_name;
+                		}
+                	}
+                }
+                onPositionChoosed(latlng, place.formatted_address, (country&&state&&city)?(city + "_" + state + "_" + country):"");
             }
-            console.dir(place);
         });
 	}
 
